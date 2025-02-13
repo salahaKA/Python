@@ -2,10 +2,7 @@ def max_profit(prices):
         if not prices:
             return 0
         min_price = prices[0]
-        max_profit = 0
-        max_profit = 0
-        buy_day = 0
-        sell_day = 0
+        max_profit, buy_day, sell_day  = 0, 0, 0
 
         for i in range(1, len(prices)):
             if prices[i] < min_price:
