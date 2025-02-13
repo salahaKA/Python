@@ -5,7 +5,7 @@ import random
 def compare_digit(rand_str,guess):
     rabbit_count=0
     Tortoise_count=0
-    for i in range(4):
+    for i in range(len(rand_str)):
         if guess[i] == rand_str[i]:
             rabbit_count+=1
         elif guess[i] in rand_str:
