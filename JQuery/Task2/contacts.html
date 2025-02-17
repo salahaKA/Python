@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Directory</title>
+    <link rel="stylesheet" href="./contacts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            let editingIndex = -1;
+
+            function validateInputs(name, number) {
+                let isValid = true;
+                $(".error-message").hide();
+
+                if (!/^[a-zA-Z\s]{3,}$/.test(name)) {
+                    $("#nameError").text("Invalid: Minimum 3 letters, no numbers.").show();
+                    isValid = false;
+                }
+
+                if (number === "" || isNaN(number) || number.length !== 10) {
+                    $("#phoneError").text("Invalid phone number. Must be 10 digits.").show();
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            $("#btn-save").click(function(){
+                let name = $("#name").val().trim();
+                let number = $("#phone").val().trim();
+
+                if (!validateInputs(name, number)) return;
+
+                if (editingIndex === -1) {
+                    $("#contactList").append(`
+                        <tr>
+                            <td>${name}</td>
+                            <td>${number}</td>
+                            <td>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `);
+                } else {
+                    let row = $("#contactList tr").eq(editingIndex);
+                    row.find("td:eq(0)").text(name);
+                    row.find("td:eq(1)").text(number);
+                    editingIndex = -1;
+                }
+
+                $("#name").val("");
+                $("#phone").val("");
+            });
+
+            $(document).on("click", ".btn-edit", function(){
+                let row = $(this).closest("tr");
+                $("#name").val(row.find("td:eq(0)").text());
+                $("#phone").val(row.find("td:eq(1)").text());
+                editingIndex = row.index();
+            });
+
+            $(document).on("click", ".btn-delete", function(){
+                $(this).closest("tr").remove();
+            });
+
+            $("#name").on("input", function () {
+                let name = $(this).val();
+                if (/^[a-zA-Z\s]{3,}$/.test(name)) {
+                    $("#nameError").hide();
+                    $(this).css("border", "1px solid #ccc");
+                } else {
+                    $("#nameError").show();
+                    $(this).css("border", "2px solid red");
+                }
+            });
+
+            $("#phone").on("input", function () {
+                let number = $(this).val();
+                if (number !== "" && !isNaN(number) && number.length === 10) {
+                    $("#phoneError").hide();
+                    $(this).css("border", "1px solid #ccc");
+                } else {
+                    $("#phoneError").show();
+                    $(this).css("border", "2px solid red");
+                }
+            });
+
+            $(".error-message").hide(); 
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Contacts</h2>
+        <form>
+            <input type="text" id="name" placeholder="Name">
+            <div id="nameError" class="error-message">Invalid: Minimum 3 letters, no numbers.</div>
+            <input type="tel" id="phone" placeholder="Number">
+            <div id="phoneError" class="error-message">Invalid phone number. Must be 10 digits.</div>
+            <button type="button" class="btn-save" id="btn-save">SAVE</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="contactList"></tbody>
+        </table>
+    </div>
+</body>
+</html>

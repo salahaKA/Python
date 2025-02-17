@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: 'Arial Narrow', Arial, sans-serif;
     margin: 0;
@@ -15,12 +15,20 @@ body {
     border-radius: 5%;
   }
   
+
+  #address {
+    width: 300px;  
+    height: 150px; 
+    resize: both;
+    overflow: auto;
+  }
+
   h2 {
     text-align: center;
     color: #8d0d0d;
   }
   
-  /* Form Styles */
+ 
   form {
     display: flex;
     flex-direction: column;
@@ -84,7 +92,7 @@ body {
     display: none;
   }
   
-  /* Password Show/Hide Icon */
+  
   .password-field {
     display: flex;
     align-items: center;

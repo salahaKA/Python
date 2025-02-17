@@ -1,215 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./signup.css" />
-    <title>Cybro Signup page</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="./signup.css" />
+  <title>Cybro Signup page</title>
 
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-      rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        var passwordPattern =
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
 
-        $("#signupForm").on("submit", function (event) {
-          event.preventDefault();
-          var password = $("#pass-field").val();
-          var confirmPassword = $("#confirmPassword").val();
-          var name = $("#name").val();
-          var email = $("#email").val();
-          var gender = $("#gender").val();
+  <script>
+    $(document).ready(function () {
+      var passwordPattern =
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
+      var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-          if (!/^[a-zA-Z]{3,}$/.test(name)) {
-            $("#nameError").show();
-            $("#name").css("border", "2px solid red");
-          } else if (!emailPattern.test(email)) {
-            $("#emailError").show();
-            $("#email").css("border", "2px solid red");
-          } else if (!gender) {
-            $("#genderError").show();
-            $("#gender").css("border", "2px solid red");
-          } else {
-            $("#nameError").hide();
-            $("#emailError").hide();
-            $("#genderError").hide();
-            if (!passwordPattern.test(password)) {
-              $("#passwordError").show();
-              $("#pass-field").css("border", "2px solid red");
-            } else if (password !== confirmPassword) {
-              $("#confirmPasswordError").show();
-              $("#confirmPassword").css("border", "2px solid red");
-            } else {
-              $("#passwordError").hide();
-              $("#confirmPasswordError").hide();
-              $("#pass-field").css("border", "1px solid #ccc");
-              $("#confirmPassword").css("border", "1px solid #ccc");
-              alert("Signup successful!");
-              window.location.href = "https://www.cybrosys.com"; // Redirect to www.cybrosys.com
-            }
-          }
-        });
+      $("#signupForm").on("submit", function (event) {
+        event.preventDefault();
+        var password = $("#pass-field").val();
+        var confirmPassword = $("#confirmPassword").val();
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var gender = $("#gender").val();
+        var age = parseInt($("#age").val());
 
-        $("#name").on("input", function () {
-          var name = $(this).val();
-          if (/^[a-zA-Z]{3,}$/.test(name)) {
-            $("#nameError").hide();
-            $(this).css("border", "1px solid #ccc");
-          } else {
-            $("#nameError").show();
-            $(this).css("border", "2px solid red");
-          }
-        });
-
-        $("#email").on("input", function () {
-          var email = $(this).val();
-          if (emailPattern.test(email)) {
-            $("#emailError").hide();
-            $(this).css("border", "1px solid #ccc");
-          } else {
-            $("#emailError").show();
-            $(this).css("border", "2px solid red");
-          }
-        });
-
-        $("#gender").on("change", function () {
-          var gender = $(this).val();
-          if (gender) {
-            $("#genderError").hide();
-            $(this).css("border", "1px solid #ccc");
-          } else {
-            $("#genderError").show();
-            $(this).css("border", "2px solid red");
-          }
-        });
-
-        $("#pass-field").on("input", function () {
-          var password = $(this).val();
-          if (passwordPattern.test(password)) {
-            $("#passwordError").hide();
-            $(this).css("border", "1px solid #ccc");
-          } else {
+        if (!/^[a-zA-Z\s]{3,}$/.test(name)) {
+          $("#nameError").show();
+        } else if (!emailPattern.test(email)) {
+          $("#emailError").show();
+        } else if (!gender) {
+          $("#genderError").show();
+        } else if (isNaN(age) || age < 1 || age > 100) {
+          $("#ageError").show();
+        } else {
+          $("#nameError").hide();
+          $("#emailError").hide();
+          $("#genderError").hide();
+          $("#ageError").hide();
+          if (!passwordPattern.test(password)) {
             $("#passwordError").show();
-            $(this).css("border", "2px solid red");
-          }
-        });
-
-        $("#confirmPassword").on("input", function () {
-          var confirmPassword = $(this).val();
-          var password = $("#pass-field").val();
-          if (confirmPassword === password) {
-            $("#confirmPasswordError").hide();
-            $(this).css("border", "1px solid #ccc");
-          } else {
+          } else if (password !== confirmPassword) {
             $("#confirmPasswordError").show();
-            $(this).css("border", "2px solid red");
+          } else {
+            $("#passwordError").hide();
+            $("#confirmPasswordError").hide();
+            $("#pass-field").css("border", "1px solid #ccc");
+            $("#confirmPassword").css("border", "1px solid #ccc");
+            alert("Signup successful!");
+            window.location.href = "https://www.cybrosys.com";
           }
-        });
-
-        $("#dob").on("change", function () {
-          var dob = new Date($(this).val());
-          var today = new Date();
-          var age = today.getFullYear() - dob.getFullYear();
-          var monthDiff = today.getMonth() - dob.getMonth();
-          if (
-            monthDiff < 0 ||
-            (monthDiff === 0 && today.getDate() < dob.getDate())
-          ) {
-            age--;
-          }
-          if (age < 0) {
-            age = 0; // Ensure age is not negative
-          }
-          $("#age").val(age);
-        });
-
-        $("#eye-btn").on("mousedown", function () {
-          $("#pass-field").attr("type", "text");
-          $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
-        });
-
-        $("#eye-btn").on("mouseup", function () {
-          $("#pass-field").attr("type", "password");
-          $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
-        });
-
-        $("#eye-btn").on("mouseleave", function () {
-          $("#pass-field").attr("type", "password");
-          $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
-        });
+        }
       });
-    </script>
-  </head>
-  <body>
-    <div class="signup-container">
-      <h2>Sign Up PAGE</h2>
-      <form id="signupForm">
-        <input type="text" id="name" name="name" placeholder="Name" required />
-        <div class="error" id="nameError">Invalid: Minimum 3 letters, no numbers.</div>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Email"
-          required />
-        <div class="error" id="emailError">Invalid email format.</div>
-        <textarea
-          id="address"
-          name="address"
-          placeholder="Address"
-          rows="4"
-          required></textarea>
-        <input
-          type="date"
-          id="dob"
-          name="dob"
-          placeholder="Date of Birth"
-          required />
-        <input
-          type="number"
-          id="age"
-          name="age"
-          placeholder="Age"
-          required
-          readonly />
-        <select id="gender" name="gender" required>
-          <option value="" disabled selected>Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <div class="error" id="genderError">Please choose one gender.</div>
-        <div class="password-field">
-          <input
-            id="pass-field"
-            type="password"
-            placeholder="Password"
-            required />
-          <a
-            href="#"
-            class="toggle_hide_password"
-            id="eye-btn">
-            <i class="fas fa-eye-slash" aria-hidden="true"></i>
-          </a>
-        </div>
-        <div class="error" id="passwordError">
-          Password must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.
-        </div>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required />
-        <div class="error" id="confirmPasswordError">Passwords do not match!</div>
-        <button type="submit">Signup</button>
-      </form>
-    </div>
-  </body>
+
+      $("#name").on("input", function () {
+        var name = $(this).val();
+        if (/^[a-zA-Z\s]{3,}$/.test(name)) {
+          $("#nameError").hide();
+          $(this).css("border", "1px solid #ccc");
+        } else {
+          $("#nameError").show();
+          $(this).css("border", "2px solid red");
+        }
+      });
+
+      $("#email").on("input", function () {
+        var email = $(this).val();
+        if (emailPattern.test(email)) {
+          $("#emailError").hide();
+          $(this).css("border", "1px solid #ccc");
+        } else {
+          $("#emailError").show();
+          $(this).css("border", "2px solid red");
+        }
+      });
+
+      $("#gender").on("change", function () {
+        var gender = $(this).val();
+        if (gender) {
+          $("#genderError").hide();
+          $(this).css("border", "1px solid #ccc");
+        } else {
+          $("#genderError").show();
+          $(this).css("border", "2px solid red");
+        }
+      });
+
+      $("#pass-field").on("input", function () {
+        var password = $(this).val();
+        if (passwordPattern.test(password)) {
+          $("#passwordError").hide();
+          $(this).css("border", "1px solid #ccc");
+        } else {
+          $("#passwordError").show();
+          $(this).css("border", "2px solid red");
+        }
+      });
+
+      $("#confirmPassword").on("input", function () {
+        var confirmPassword = $(this).val();
+        var password = $("#pass-field").val();
+        if (confirmPassword === password) {
+          $("#confirmPasswordError").hide();
+          $(this).css("border", "1px solid #ccc");
+        } else {
+          $("#confirmPasswordError").show();
+          $(this).css("border", "2px solid red");
+        }
+      });
+
+      $("#dob").on("change", function () {
+        var dob = new Date($(this).val());
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dob.getDate())
+        ) {
+          age--;
+        }
+        if (age < 0) {
+          age = 0; 
+        }
+        $("#age").val(age);
+        if (age < 1 || age > 100) {
+          $("#ageError").show();
+        } else {
+          $("#ageError").hide();
+        }
+      });
+
+      $("#eye-btn").on("mousedown", function () {
+        $("#pass-field").attr("type", "text");
+        $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+      });
+
+      $("#eye-btn").on("mouseup", function () {
+        $("#pass-field").attr("type", "password");
+        $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+      });
+
+      $("#eye-btn").on("mouseleave", function () {
+        $("#pass-field").attr("type", "password");
+        $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+      });
+    });
+</script>
+
+</head>
+
+<body>
+  <div class="signup-container">
+    <h2>SignUp PAGE</h2>
+    <form id="signupForm">
+      <input type="text" id="name" name="name" placeholder="Enter your name" required />
+      <div class="error" id="nameError">Invalid: Minimum 3 letters, no numbers.</div>
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <div class="error" id="emailError">Invalid email format.</div>
+      <textarea id="address" name="address" placeholder="Address" required></textarea>
+      <input type="date" id="dob" name="dob" placeholder="Date of Birth" required />
+      <input type="number" id="age" name="age" placeholder="Age" required readonly />
+      <span id="ageError" style="display:none; color:red;">Please enter a valid age between 1 and 100.</span>
+      <select id="gender" name="gender" required>
+        <option value="" disabled selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="error" id="genderError">Please choose one gender.</div>
+      <div class="password-field">
+        <input id="pass-field" type="password" placeholder="Password" required />
+        <a href="#" class="toggle_hide_password" id="eye-btn">
+          <i class="fas fa-eye-slash" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="error" id="passwordError">
+        Password must contain at least one number, one uppercase letter, one lowercase letter, one special character,
+        and be at least 8 characters long.
+      </div>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required />
+      <div class="error" id="confirmPasswordError">Passwords do not match!</div>
+      <button type="submit">Signup</button>
+    </form>
+  </div>
+</body>
+
 </html>
