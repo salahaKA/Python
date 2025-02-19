@@ -10,22 +10,27 @@
     <script>
         $(document).ready(function(){
             let editingIndex = -1;
+            let phoneNumbers = [];
 
             function validateInputs(name, number) {
                 let isValid = true;
                 $(".error-message").hide();
 
                 if (!/^[a-zA-Z\s]{3,}$/.test(name)) {
-                    $("#nameError").text("Invalid: Minimum 3 letters, no numbers.").show();
+                    $("#nameError").show();
                     isValid = false;
                 }
 
                 if (number === "" || isNaN(number) || number.length !== 10) {
-                    $("#phoneError").text("Invalid phone number. Must be 10 digits.").show();
+                    $("#phoneError").show();
                     isValid = false;
                 }
 
                 return isValid;
+            }
+
+            function isUniquePhoneNumber(number) {
+                return !phoneNumbers.includes(number);
             }
 
             $("#btn-save").click(function(){
@@ -34,7 +39,13 @@
 
                 if (!validateInputs(name, number)) return;
 
+                if (!isUniquePhoneNumber(number)) {
+                    $("#phoneError").text("Phone number already exists.").show();
+                    return;
+                }
+
                 if (editingIndex === -1) {
+                    phoneNumbers.push(number);
                     $("#contactList").append(`
                         <tr>
                             <td>${name}</td>
@@ -46,6 +57,11 @@
                         </tr>
                     `);
                 } else {
+                    let oldNumber = phoneNumbers[editingIndex];
+                    phoneNumbers[editingIndex] = number;
+                    if (oldNumber !== number && phoneNumbers.includes(oldNumber)) {
+                        phoneNumbers.splice(phoneNumbers.indexOf(oldNumber), 1);
+                    }
                     let row = $("#contactList tr").eq(editingIndex);
                     row.find("td:eq(0)").text(name);
                     row.find("td:eq(1)").text(number);
@@ -64,7 +80,10 @@
             });
 
             $(document).on("click", ".btn-delete", function(){
-                $(this).closest("tr").remove();
+                let row = $(this).closest("tr");
+                let number = row.find("td:eq(1)").text();
+                phoneNumbers.splice(phoneNumbers.indexOf(number), 1);
+                row.remove();
             });
 
             $("#name").on("input", function () {
