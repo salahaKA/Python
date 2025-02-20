@@ -28,10 +28,10 @@ $(document).ready(function () {
         var name = $('#productName').val();
         var description = $('#productDescription').val();
         var price = parseFloat($('#productPrice').val());
-        if(name==""|| description=="" || price=="" || imageFile==""){
-            alert("All fields are required");
-            return;
-        }
+        // if(name==""|| description=="" || price=="" || imageFile==""){
+        //     alert("All fields are required");
+        //     return;
+        // }
         var imageFile = $('#productImage')[0].files[0];
         
         if (!imageFile) {
