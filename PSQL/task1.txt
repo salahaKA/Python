@@ -1,0 +1,111 @@
+SELECT name
+FROM Club
+WHERE country_id = (
+    SELECT id
+    FROM Country
+    WHERE name = 'England'
+);       
+
+
+SELECT p.name AS player_name, p.age, p.goals, c.name AS club_name, ch.name AS coach_name
+FROM Players p
+JOIN Club c ON p.club_id = c.id
+JOIN Coach ch ON c.coach_id = ch.id
+WHERE p.country_id = ch.country_id;     
+
+
+
+SELECT p.name AS player_name, p.age, p.goals, c.name AS club_name
+FROM Players p
+JOIN Club c ON p.club_id = c.id
+WHERE p.country_id = c.country_id;    
+
+
+SELECT ch.name AS coach_name, ch.age, c.name AS club_name, co.name AS club_country
+FROM Coach ch
+JOIN Club c ON ch.id = c.coach_id
+JOIN Country co ON c.country_id = co.id
+WHERE ch.country_id != c.country_id AND ch.age < 59
+ORDER BY ch.age;   
+
+
+CREATE VIEW top_5_goals AS
+SELECT p.name AS player_name, co.name AS country, p.age, p.goals, c.name AS club, ch.name AS coach
+FROM Players p
+JOIN Club c ON p.club_id = c.id
+JOIN Coach ch ON c.coach_id = ch.id
+JOIN Country co ON p.country_id = co.id
+ORDER BY p.goals DESC
+LIMIT 5;        
+
+
+
+-- Create Tables
+CREATE TABLE Country (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE Coach (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    country_id INT,
+    FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+CREATE TABLE Club (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    coach_id INT,
+    country_id INT,
+    FOREIGN KEY (coach_id) REFERENCES Coach(id),
+    FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+CREATE TABLE Players (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    goals INT,
+    club_id INT,
+    country_id INT,
+    FOREIGN KEY (club_id) REFERENCES Club(id),
+    FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+-- Insert Data
+INSERT INTO Country (id, name) VALUES
+(101, 'England'),
+(102, 'Argentina'),
+(109, 'Portugal'),
+(124, 'Germany'),
+(135, 'Spain'),
+(136, 'Italy'),
+(149, 'Egypt'),
+(158, 'Brazil'),
+(202, 'France');
+
+INSERT INTO Coach (id, name, age, country_id) VALUES
+(2349, 'Pochettino', 50, 102),
+(2648, 'Allegri', 54, 136),
+(3414, 'Conte', 52, 136),
+(4821, 'Rangnick', 63, 124),
+(5975, 'Xavi', 42, 135),
+(7456, 'Klopp', 54, 124);
+
+INSERT INTO Club (id, name, coach_id, country_id) VALUES
+(635, 'Liverpool', 7456, 101),
+(723, 'Juventus', 2648, 136),
+(893, 'Barcelona', 5975, 135),
+(897, 'Manchester U.', 4821, 101),
+(901, 'PSG', 2349, 202),
+(975, 'Tottenham', 3414, 101);
+
+INSERT INTO Players (id, name, age, goals, club_id, country_id) VALUES
+(1, 'Messi', 34, 761, 901, 102),
+(2, 'Ronaldo', 37, 801, 897, 109),
+(3, 'Neymar', 30, 344, 901, 158),
+(4, 'Salah', 29, 223, 635, 149),
+(5, 'Kane', 28, 241, 975, 101);
+ 
