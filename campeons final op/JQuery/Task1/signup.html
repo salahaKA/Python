@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./signup.css" />
+    <title>Cybro Signup page</title>
+    <link
+      rel="icon"
+      href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSId6NhJseVrpU6P1mgPF7ni9Cru9qf2hKl-w&s"
+      type="image/x-icon" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet" />
+    <script src="./signup.js"></script>
+  </head>
+
+  <body>
+    <div class="signup-container">
+      <h2>SignUp Page</h2>
+      <form id="signupForm">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your name" />
+        <div class="error" id="nameError">
+          Invalid: Minimum 3 letters, no numbers.
+        </div>
+        <input type="email" id="email" name="email" placeholder="Email" />
+        <div class="error" id="emailError">Invalid email format.</div>
+        <textarea
+          id="address"
+          name="address"
+          placeholder="Address"
+          rows="4"></textarea>
+        <input type="date" id="dob" name="dob" placeholder="Date of Birth" />
+        <input type="number" id="age" name="age" placeholder="Age" readonly />
+        <span id="ageError" style="display: none; color: red"
+          >Please enter a valid age between 1 and 100.</span
+        >
+        <select id="gender" name="gender">
+          <option value="" disabled selected>Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="error" id="genderError">Please choose one gender.</div>
+        <div class="password-field">
+          <input
+            id="pass-field"
+            type="password"
+            placeholder="Password"
+            onpaste="return false;" />
+          <a href="#" class="toggle_hide_password" id="eye-btn">
+            <i class="fas fa-eye-slash" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="error" id="passwordError">
+          Password must contain at least one number, one uppercase letter, one
+          lowercase letter, one special character, and be at least 8 characters
+          long.
+        </div>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm Password" />
+        <div class="error" id="confirmPasswordError">
+          Passwords do not match!
+        </div>
+        <button type="submit">Signup</button>
+      </form>
+    </div>
+  </body>
+</html>

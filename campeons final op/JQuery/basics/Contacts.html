@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./Contacts.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet" />
+    <title>Phone Directory</title>
+    <script></script>
+  </head>
+  <body>
+    <div class="contact-container">
+      <h2>Contacts</h2>
+      <form action="">
+        <input type="text" id="name" class="name" placeholder="Name:" />
+        <input type="tel" id="phno" class="phno" placeholder="Phone No:" />
+        <button type="submit" class="save"></button>
+      </form>
+
+      <table border="2">
+        <!-- <th>
+            <td>Phone No:</td>
+            <td>EDIT</td>
+            <td>DELETE</td>
+        </th> -->
+
+        <tr>
+          <td><input type="text" class="name" /></td>
+          <td>
+            <button type="submit" class="edit">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

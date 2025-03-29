@@ -1,0 +1,111 @@
+body {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
+
+.signup-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #cdd5d5;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5%;
+}
+
+h2 {
+  text-align: center;
+  color: #8d0d0d;
+}
+
+#address {
+  width: 300px;
+  height: 150px;
+  overflow: auto;
+  resize: auto;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="date"] {
+  padding: 9px;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(70, 130, 180, 0.5);
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  flex-grow: 1;
+}
+
+.toggle_hide_password {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.toggle_hide_password i {
+  font-size: 18px;
+  color: #666363;
+}
+
+.toggle_hide_password:hover i {
+  color: #333;
+}

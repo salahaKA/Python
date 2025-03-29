@@ -1,0 +1,122 @@
+CREATE TABLE IF NOT EXISTS Country(
+id INT PRIMARY KEY,
+name VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS Coach(
+id INT PRIMARY KEY,
+name VARCHAR(20),
+age INT,
+country_id INT,
+FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS Club(
+id INT PRIMARY KEY,
+name VARCHAR(50),
+coach_id INT,
+country_id INT,
+FOREIGN KEY (coach_id) REFERENCES Coach(id),
+FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS Players (
+id INT PRIMARY KEY,
+name VARCHAR(50),
+age INT,
+goals INT,
+club_id INT,
+country_id INT,
+FOREIGN KEY (club_id) REFERENCES Club(id),
+FOREIGN KEY (country_id) REFERENCES Country(id)
+);
+
+
+-- INSERT INTO Country(id, name) VALUES
+-- (101, 'England'),
+-- (102, 'Argentina'),
+-- (109, 'Portugal'),
+-- (124, 'Germany'),
+-- (135, 'Spain'),
+-- (136, 'Italy'),
+-- (149, 'Egypt'),
+-- (158, 'Brazil'),
+-- (202, 'France');
+-- SELECT * FROM Country;
+
+-- INSERT INTO Coach (id, name, age, country_id) VALUES
+-- (2349, 'Pochettino', 50, 102),
+-- (2648, 'Allegri', 54, 136),
+-- (3414, 'Conte', 52, 136),
+-- (4821, 'Rangnick', 63, 124),
+-- (5975, 'Xavi', 42, 135),
+-- (7456, 'Klopp', 54, 124);
+-- SELECT * FROM Coach;
+
+
+-- INSERT INTO Club (id, name, coach_id, country_id) VALUES
+-- (635, 'Liverpool', 7456, 101),
+-- (723, 'Juventus', 2648, 136),
+-- (893, 'Barcelona', 5975, 135),
+-- (897, 'Manchester U.', 4821, 101),
+-- (901, 'PSG', 2349, 202),
+-- (975, 'Tottenham', 3414, 101);
+-- SELECT * FROM Club;
+
+-- INSERT INTO Players (id, name, age, goals, club_id, country_id) VALUES
+-- (1, 'Messi', 34, 761, 901, 102),
+-- (2, 'Ronaldo', 37, 801, 897, 109),
+-- (3, 'Neymar', 30, 344, 901, 158),
+-- (4, 'Salah', 29, 223, 635, 149),
+-- (5, 'Kane', 28, 241, 975, 101);
+-- SELECT * FROM PLayers;
+
+
+
+
+-- SELECT name FROM Club WHERE country_id = (
+-- SELECT id FROM Country WHERE name = 'England'
+-- );
+
+-- SELECT Players.name AS players_name, Coach.name AS coach_name FROM Players
+-- INNER JOIN Club ON Players.club_id = Club.id
+-- INNER JOIN Coach ON Club.coach_id = Coach.id
+-- WHERE Players.country_id = Coach.country_id;
+
+-- SELECT Players.name AS players_name FROM Players
+-- INNER JOIN Club ON Players.country_id = Club.country_id
+-- INNER JOIN Coach ON Club.coach_id = Coach.id
+-- WHERE Players.club_id = Club.id;
+
+-- SELECT Coach.name AS coach_name, Coach.age as coach_age
+-- FROM Coach
+-- INNER JOIN Club ON 
+-- Club.coach_id = Coach.id AND 
+-- Club.country_id != Coach.country_id AND 
+-- Coach.age < 59 ORDER BY Coach.age;
+
+-- CREATE VIEW top_5_goals AS
+-- SELECT Players.name AS player_name, Country.name AS country_name, Players.age, Players.goals, Club.name AS club_name, Coach.name AS coach_name
+-- FROM Players
+-- INNER JOIN Club ON Players.club_id = Club.id
+-- INNER JOIN Country ON Players.country_id = Country.id
+-- INNER JOIN Coach ON Club.coach_id = Coach.id
+-- ORDER BY Players.goals DESC
+-- LIMIT 5;
+
+SELECT * FROM top_5_goals;
+
+
+
+
+
+
+
+
+
+
+
+
+

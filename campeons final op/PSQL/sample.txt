@@ -1,0 +1,77 @@
+CREATE DATABASE cybro_db;
+
+CREATE TABLE Players (
+player_id int ,
+player_name varchar(25) ,
+player_age int,
+goals int,
+club_id int,
+country_id int) ;
+
+
+CREATE TABLE Club (
+club_id int ,
+club_name varchar(25) ,
+coach_id int,
+country_id int) ;
+
+CREATE TABLE Coach (
+coach_id int ,
+coach_name varchar(25) ,
+coach_age int,
+country_id int) ;
+
+
+CREATE TABLE Country (
+country_id int ,
+country_name varchar(25) ) ;
+
+
+
+INSERT INTO Players (
+player_id, player_name, player_age, goals, club_id, country_id
+) VALUES 
+(1, "Messi", 34, 761, 901, 102),
+(2, "Ronaldo", 37, 801, 897, 109),
+(3, "Neymar", 30, 344, 901, 158),
+(4, "Salah", 29, 223, 635, 149),
+(5, "Kane", 28, 241, 975, 101);
+
+INSERT Club (club_id, club_name, coach_id, country_id) VALUES 
+(635, "Liverpool", 7456, 101),
+(723, "Juventus", 2648, 136),
+(893, "Barcelona", 5975, 135),
+(897, "Manchester U.", 4821, 101),
+(901, "PSG", 2349, 202),
+(975, "Tottenham", 3414, 101),
+)
+
+
+INSERT Coach (coach_id, coach_name, coach_age, country_id) VALUES 
+(2349, "Pochettino", 50, 102),
+(2348, "Allegri", 54, 136),
+(3414, "Conte", 52, 136),
+(4821, "Rangnick", 63, 124),
+(5975, "Xavi", 42, 135),
+(7456, "Klopp", 54, 124),
+)
+
+INSERT INTO Country( country_id, country_name) VALUES 
+(101, "England"),
+(102, "Argentina"),
+(109, "Portugal"),
+(124, "Germany"),
+(135, "Spain"),
+(136, "Italy"),
+(149, "Egypt"),
+(158, "Brazil"),
+(202, "France");
+
+
+
+
+
+
+
+
+

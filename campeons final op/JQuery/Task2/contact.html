@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Directory</title>
+    <link
+      rel="icon"
+      href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSId6NhJseVrpU6P1mgPF7ni9Cru9qf2hKl-w&s"
+      type="image/x-icon" />
+
+    <link rel="stylesheet" href="./contact.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./contact.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Contacts</h2>
+      <form>
+        <input type="text" id="name" placeholder="Name" />
+        <div id="nameError" class="error">
+          Invalid: Minimum 3 letters, no numbers.
+        </div>
+        <input type="tel" id="phone" placeholder="Number" />
+        <div id="phoneError" class="error">
+          Invalid phone number. Must be 10 digits.
+        </div>
+        <button type="button" class="btn-save" id="btn-save">SAVE</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="contactList"></tbody>
+      </table>
+    </div>
+  </body>
+</html>

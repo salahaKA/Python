@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POS System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./pos.css" />
+    <link
+      rel="icon"
+      href="../../Image/icons/cart-icon.png"
+      type="image/x-icon" />
+    <script src="./pos.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Simple <span style="color: brown">POS System</span></h2>
+      <div class="form-section">
+        <h3>ADD CUSTOMER</h3>
+        <form id="customerForm">
+          <input type="text" id="customerName" placeholder="Customer Name" />
+          <input
+            type="text"
+            id="customerLocation"
+            placeholder="Customer Location" />
+          <input
+            type="text"
+            id="customerPhone"
+            placeholder="Customer Phone Number" />
+          <button type="submit">
+            <i class="fas fa-user-plus"></i>ADD CUSTOMER
+          </button>
+        </form>
+        <table id="customerTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <br /><br />
+
+      <div class="form-section">
+        <h3>ADD PRODUCT</h3>
+        <form id="productForm">
+          <input type="text" id="productName" placeholder="Product Name" />
+          <input
+            type="text"
+            id="productDescription"
+            placeholder="Product Description" />
+          <input type="text" id="productPrice" placeholder="Product Price" />
+          <input type="file" id="productImage" />
+          <button type="submit">
+            <i class="fas fa-cart-plus"></i>ADD PRODUCT
+          </button>
+        </form>
+        <table id="productTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Image</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <br /><br />
+
+      <div class="form-section">
+        <h3>CREATE ORDER</h3>
+        <form id="orderForm">
+          <select id="orderCustomer">
+            <option value="" disabled selected>Select Customer</option>
+          </select>
+          <select id="orderProduct">
+            <option value="" disabled selected>Select Product</option>
+          </select>
+          <input
+            type="number"
+            id="orderQuantity"
+            placeholder="Quantity"
+            min="1" />
+          <button type="submit">
+            <i class="fas fa-plus-circle"></i>ADD TO ORDER
+          </button>
+        </form>
+        <table id="orderTable">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div>
+          <p>Subtotal: <span id="subtotal">0</span></p>
+          <p>Total: <span id="total">0</span></p>
+          <button id="generateInvoice">
+            <i class="fas fa-file-invoice"></i>Generate Invoice
+          </button>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="form-section" id="invoiceSection" style="display: none">
+        <h3>Invoice</h3>
+        <div id="invoiceContent"></div>
+        <button id="printInvoice">
+          <i class="fas fa-print"></i>Print Invoice
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
